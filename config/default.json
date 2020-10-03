@@ -1,0 +1,3 @@
+{
+  "mongoURI": "mongodb+srv://raskog:bmw320i@renossance.z35jd.mongodb.net/<dbname>?retryWrites=true&w=majority"
+}

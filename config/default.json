@@ -1,3 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://raskog:bmw320i@renossance.z35jd.mongodb.net/<dbname>?retryWrites=true&w=majority"
+  "mongoURI": "mongodb+srv://raskog:bmw320i@renossance.z35jd.mongodb.net/<dbname>?retryWrites=true&w=majority",
+  "jwtSecret": "mysecret"
 }

@@ -19,40 +19,24 @@ const LocationSchema = new mongoose.Schema(
       state: {
         type: String,
       },
+      zip: {
+        type: Number
+      }
     },
-    employees: {
-      type: [String],
-    },
+    // employees: {
+    //   type: [String],
+    // },
+    employees: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      }
+    ],
     rooms: [
       {
-        locale: {
-          type: String,
-          required: true,
-        },
-        roomType: {
-          type: String,
-        },
-        trackers: [
-          {
-            name: {
-              type: String,
-              required: true,
-            },
-            completed: {
-              type: Boolean,
-              default: false,
-            },
-            updatedBy: {
-              type: mongoose.Schema.Types.ObjectId,
-              ref: "user",
-            },
-            date: {
-              type: Date,
-              default: Date.now,
-            },
-          },
-        ],
-      },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Room",
+      }
     ],
   },
   { timestamps: true }

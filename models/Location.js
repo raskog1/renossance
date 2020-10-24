@@ -23,9 +23,6 @@ const LocationSchema = new mongoose.Schema(
         type: Number
       }
     },
-    // employees: {
-    //   type: [String],
-    // },
     employees: [
       {
         type: mongoose.Schema.Types.ObjectId,

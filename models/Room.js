@@ -2,17 +2,26 @@ const mongoose = require("mongoose");
 
 const RoomSchema = new mongoose.Schema(
     {
-        locale: {
+        name: {
             type: String,
-            required: true
+            required: true,
         },
-        roomType: {
+        roomCode: {
             type: String
         },
         parentLocation: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Location"
+            ref: "Location",
+            required: true
         },
+        building: {
+            type: String
+        },
+        type: {
+            type: String,
+            enum: ["Guest Room", "Banquet", "Public", "Office", "Other"]
+        },
+        features: [String],
         trackers: [
             {
                 name: {

@@ -25,6 +25,11 @@ const UserSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    location: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Location",
+      required: true
+    },
     department: {
       type: String,
       enum: [
@@ -41,7 +46,7 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-UserSchema.methods.setFullName = function() {
+UserSchema.methods.setFullName = function () {
   this.fullName = `${this.lastname}, ${this.firstname}`;
   return this.fullName;
 };

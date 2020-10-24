@@ -6,6 +6,7 @@ const config = require("config");
 const { check, validationResult } = require("express-validator");
 
 const User = require("../../models/User");
+const Location = require("../../models/Location");
 
 // @route   POST api/users
 // @desc    Register user
@@ -41,7 +42,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { firstname, lastname, email, password, department } = req.body;
+    const { firstname, lastname, email, password, department, location } = req.body;
     const username = `${firstname[0].toLowerCase()}${lastname.toLowerCase()}${Math.floor(
       Math.random() * 10
     )}`;
@@ -49,11 +50,16 @@ router.post(
     try {
       let userEmail = await User.findOne({ email });
       let user = await User.findOne({ username });
+      let matchLoc = await Location.findById(location);
 
       if (user || userEmail) {
         return res
           .status(400)
           .json({ errors: [{ msg: "User already exists" }] });
+      }
+
+      if (!matchLoc) {
+        return res.status(400).json({ errors: [{ msg: "Invalid location" }] });
       }
 
       user = new User({
@@ -63,6 +69,7 @@ router.post(
         username,
         password,
         department,
+        location
       });
 
       const salt = await bcrypt.genSalt(10);
@@ -73,6 +80,7 @@ router.post(
       const payload = {
         user: {
           id: user.id,
+          loc: user.location
         },
       };
 

@@ -2,11 +2,12 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 // Utilities and Context
-import './App.css';
+import "./App.css";
 
 // Components
 import LoginPage from "./pages/LoginPage";
-import { createMuiTheme } from '@material-ui/core/styles';
+import DashPage from "./pages/DashPage";
+import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/core";
 
 const theme = createMuiTheme({
@@ -16,6 +17,9 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: "#63727a",
+    },
+    error: {
+      main: "#ff0000",
     },
   },
 });
@@ -27,11 +31,11 @@ function App() {
         <ThemeProvider theme={theme}>
           <Switch>
             <Route exact path="/" component={LoginPage} />
+            <Route path="/dash" component={DashPage} />
           </Switch>
         </ThemeProvider>
       </Router>
     </div>
-
   );
 }
 

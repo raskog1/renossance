@@ -1,17 +1,28 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
-import { Button, TextField, Snackbar, Slide } from "@material-ui/core";
+import {
+  Button,
+  TextField,
+  Snackbar,
+  SnackbarContent,
+  Slide,
+} from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 //import CustomizedInputs from "../../components/CustomizedInputs";
 
+import AuthContext from "../../utils/AuthContext";
+
 function LoginPage() {
+  // States
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
   });
   const [open, setOpen] = useState(false);
 
+  // Other Variables
+  const { authData, setAuth } = React.useContext(AuthContext);
   const { username, password } = credentials;
 
   const onChange = (e) =>
@@ -32,14 +43,22 @@ function LoginPage() {
       console.log(res);
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
-        axios.defaults.headers.common["x-auth-token"] = res.data.token;
-        return <Redirect to="/dash" />;
       }
-      //   setAuthToken(localStorage.token);
+
+      axios.defaults.headers.common["x-auth-token"] = res.data.token;
+
+      setAuth({
+        ...authData,
+        isAuthenticated: true,
+        loading: false,
+        token: localStorage.getItem("token"),
+      });
     } catch (error) {
+      // Displays error popup for user
       setOpen(true);
+
       localStorage.removeItem("token");
-      delete axios.defaults.headers.common["x-auth-token"];
+      setAuth({ ...authData, isAuthenticated: false, token: null });
       console.error(error);
     }
   };
@@ -50,6 +69,10 @@ function LoginPage() {
     }
     setOpen(false);
   };
+
+  if (authData.isAuthenticated) {
+    return <Redirect to="/dash" />;
+  }
 
   return (
     <div className="App-header">
@@ -83,8 +106,14 @@ function LoginPage() {
         open={open}
         autoHideDuration={4500}
         TransitionComponent={Slide}
-        onClose={handleClose}
+        //onClose={handleClose}
       >
+        {/* <SnackbarContent
+          style={{
+            backgroundColor: "red",
+          }}
+          message="Invalid Credentials"
+        /> */}
         <MuiAlert
           elevation={20}
           variant="filled"

@@ -5,7 +5,6 @@ const AuthContext = React.createContext({
     token: localStorage.getItem("token"),
     isAuthenticated: null,
     loading: true,
-    user: null,
   },
   setAuth: () => {},
 });

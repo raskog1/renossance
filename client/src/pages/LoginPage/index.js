@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import {
@@ -11,7 +11,9 @@ import {
 import MuiAlert from "@material-ui/lab/Alert";
 //import CustomizedInputs from "../../components/CustomizedInputs";
 
+// Utilities and Context
 import AuthContext from "../../utils/AuthContext";
+import UserContext from "../../utils/UserContext";
 
 function LoginPage() {
   // States
@@ -22,7 +24,8 @@ function LoginPage() {
   const [open, setOpen] = useState(false);
 
   // Other Variables
-  const { authData, setAuth } = React.useContext(AuthContext);
+  const { authData, setAuth } = useContext(AuthContext);
+  const { setUser } = useContext(UserContext);
   const { username, password } = credentials;
 
   const onChange = (e) =>
@@ -53,6 +56,7 @@ function LoginPage() {
         loading: false,
         token: localStorage.getItem("token"),
       });
+      setUser(res.data.user);
     } catch (error) {
       // Displays error popup for user
       setOpen(true);

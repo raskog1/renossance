@@ -66,7 +66,8 @@ router.post(
       const payload = {
         user: {
           id: user.id,
-          loc: user.location
+          // loc: user.location,
+          // user: user.firstname,
         },
       };
 
@@ -75,8 +76,14 @@ router.post(
         config.get("jwtSecret"),
         { expiresIn: 7200 },
         (err, token) => {
+          const safeUser = {
+            ...user._doc,
+            password: undefined,
+            token,
+          };
+
           if (err) throw err;
-          res.json({ token });
+          res.json({ user: safeUser });
         }
       );
     } catch (error) {

@@ -1,27 +1,28 @@
 .welcome {
-    margin: auto;
-    width: 300px;
-    position: relative;
-    margin-top: 50%;
+  margin: auto;
+  width: 300px;
+  position: relative;
+  margin-top: 20%;
 }
 
 .welcome-text {
-    font-size: 50px;
-    float: left;
-    position: absolute;
-    padding-left: 10px;
+  font-size: 50px;
+  float: left;
+  position: absolute;
+  padding-left: 10px;
 }
 
 .name-text {
-    font-size: 60px;
-    float: right;
-    position: relative;
-    padding-right: 10px;
-    color: #5a2d81;
+  font-size: 60px;
+  float: right;
+  position: relative;
+  padding-right: 10px;
+  color: #5a2d81;
 }
 
 @media only screen and (max-device-width: 414px) and (orientation: portrait) {
-    .welcome {
-        width: 100%;
-    }
+  .welcome {
+    width: 100%;
+    margin-top: 90%;
+  }
 }
